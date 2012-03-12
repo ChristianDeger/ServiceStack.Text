@@ -156,6 +156,14 @@ namespace ServiceStack.Text.Tests.Utils
             AssertDatesAreEqual(wcfDate, dateTime, "wcf date");
 		}
 
+        [Test]
+        public void Can_convert_datetime_of_missing_hour_during_european_summer_time_switch()
+        {
+            var dateTime = new DateTime(2012, 3, 25, 2, 30, 0);
+            // Current implementation throws
+            DateTimeSerializer.ToShortestXsdDateTimeString(dateTime);
+        }
+
         private void AssertDatesAreEqual(DateTime toDateTime, DateTime dateTime, string which)
         {
 			Assert.That(toDateTime.ToStableUniversalTime().RoundToMs(), Is.EqualTo(dateTime.ToStableUniversalTime().RoundToMs()), which);
